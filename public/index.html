@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="api-base" content="https://crop4ic.github.io/NeDS/public/index.html">
   <title>Discord-Style Messenger</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
@@ -209,9 +208,11 @@ function ensureSocketIo() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   const servedByNode = (location.hostname === 'localhost' || location.hostname === '127.0.0.1') && location.port === '3000';
-  const apiBase = servedByNode ? '' : 'http://localhost:3000';
+  const apiMeta = document.querySelector('meta[name="api-base"]');
+  const configuredApiBase = apiMeta && apiMeta.content ? apiMeta.content.trim() : '';
+  const apiBase = configuredApiBase || (servedByNode ? '' : 'http://localhost:3000');
   await ensureSocketIo();
-  const socket = servedByNode ? io() : io(apiBase, { transports: ['websocket', 'polling'] });
+  const socket = servedByNode && !configuredApiBase ? io() : io(apiBase, { transports: ['websocket', 'polling'] });
   const serversEl = document.getElementById('servers');
   const channelsEl = document.getElementById('channels');
   const serverNameEl = document.getElementById('server-name');
