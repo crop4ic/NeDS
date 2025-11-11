@@ -18,7 +18,15 @@ app = Flask(__name__, static_folder='public', static_url_path='')
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Initialize Socket.IO
-sio = socketio.Server(cors_allowed_origins="*", async_mode='threading')
+# Use 'eventlet' mode for production (supports WebSocket properly)
+# Falls back to 'threading' if eventlet not available
+try:
+    import eventlet
+    async_mode = 'eventlet'
+except ImportError:
+    async_mode = 'threading'
+
+sio = socketio.Server(cors_allowed_origins="*", async_mode=async_mode)
 socketio_app = socketio.WSGIApp(sio, app)
 
 # Data storage
@@ -288,17 +296,20 @@ sio.on('channel:join', handle_channel_join)
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 3000))
-    print(f'Server running on http://localhost:{port}')
     
     # Use eventlet for production (supports WebSocket)
+    # This is required for Socket.IO to work properly
     try:
         import eventlet
-        eventlet.wsgi.server(eventlet.listen(('0.0.0.0', port)), socketio_app)
+        eventlet.monkey_patch()  # Patch standard library for async
+        print(f'Server running on http://0.0.0.0:{port} (eventlet)')
+        eventlet.wsgi.server(eventlet.listen(('0.0.0.0', port)), socketio_app, log_output=False)
     except ImportError:
-        print('Warning: eventlet not installed, using development server')
-        print('For production, install: pip install eventlet')
-        # Fallback to Flask dev server (WebSocket may not work properly)
-        from werkzeug.serving import WSGIRequestHandler
-        WSGIRequestHandler.protocol_version = "HTTP/1.1"
-        app.run(host='0.0.0.0', port=port, debug=False)
+        print('ERROR: eventlet not installed!')
+        print('Install it with: pip install eventlet')
+        print('This is required for Socket.IO WebSocket support.')
+        exit(1)
+    except Exception as e:
+        print(f'ERROR starting server: {e}')
+        exit(1)
 
