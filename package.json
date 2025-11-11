@@ -1,0 +1,21 @@
+{
+  "name": "discord-style-messenger",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Simple Discord-style messenger with Express, Socket.IO, and SQLite",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "postinstall": "node scripts/postinstall.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "socket.io": "^4.8.1",
+    "better-sqlite3": "^11.7.0"
+  }
+}
+
+
