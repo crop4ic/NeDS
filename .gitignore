@@ -1,12 +1,27 @@
+# Node.js
 node_modules
 npm-debug.log*
 yarn.lock
 pnpm-lock.yaml
 package-lock.json
-.env
-.DS_Store
-data/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+*.egg-info/
 dist/
 build/
+
+# Data
+data/
+.env
+.DS_Store
 
 
