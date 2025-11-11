@@ -81,11 +81,13 @@ NeDS/
 
 ### Render.com
 
-1. Создай новый Web Service
+1. Создай новый **Web Service**
 2. Подключи GitHub репозиторий
-3. Build Command: `pip install -r requirements.txt`
-4. Start Command: `python server.py`
-5. Добавь переменную окружения `PORT` (Render установит автоматически)
+3. **Build Command**: `pip3 install -r requirements.txt`
+4. **Start Command**: `python3 server.py`
+5. **Root Directory**: оставь пустым
+6. **Environment Variables**: не нужны (PORT устанавливается автоматически)
+7. Включи **Auto-Deploy** если нужно
 
 ### Другие платформы
 
