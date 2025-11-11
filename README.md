@@ -83,11 +83,17 @@ NeDS/
 
 1. Создай новый **Web Service**
 2. Подключи GitHub репозиторий
-3. **Build Command**: `pip3 install -r requirements.txt`
+3. **Build Command**: 
+   ```
+   pip3 install --upgrade pip && pip3 install -r requirements.txt
+   ```
 4. **Start Command**: `python3 server.py`
 5. **Root Directory**: оставь пустым
 6. **Environment Variables**: не нужны (PORT устанавливается автоматически)
-7. Включи **Auto-Deploy** если нужно
+7. **Python Version**: выбери Python 3.10 или выше
+8. Включи **Auto-Deploy** если нужно
+
+**Важно**: Убедись, что в Build Command используется `pip3 install -r requirements.txt` - это установит все зависимости, включая `eventlet`.
 
 ### Другие платформы
 

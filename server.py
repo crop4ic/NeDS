@@ -302,14 +302,23 @@ if __name__ == '__main__':
     try:
         import eventlet
         eventlet.monkey_patch()  # Patch standard library for async
+        print(f'✓ eventlet loaded successfully')
         print(f'Server running on http://0.0.0.0:{port} (eventlet)')
         eventlet.wsgi.server(eventlet.listen(('0.0.0.0', port)), socketio_app, log_output=False)
-    except ImportError:
+    except ImportError as e:
+        print('=' * 50)
         print('ERROR: eventlet not installed!')
-        print('Install it with: pip install eventlet')
-        print('This is required for Socket.IO WebSocket support.')
+        print('=' * 50)
+        print(f'Import error: {e}')
+        print('\nTo fix this, run:')
+        print('  pip3 install eventlet')
+        print('\nOr check that requirements.txt contains: eventlet==0.33.3')
+        print('And that Build Command includes: pip3 install -r requirements.txt')
+        print('=' * 50)
         exit(1)
     except Exception as e:
         print(f'ERROR starting server: {e}')
+        import traceback
+        traceback.print_exc()
         exit(1)
 
