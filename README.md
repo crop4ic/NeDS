@@ -4,35 +4,31 @@
 
 ## Технологии
 
-- **Backend**: Python 3 + Flask + Socket.IO
+- **Backend**: Node.js + Express + Socket.IO
 - **Frontend**: HTML/CSS/JavaScript (Discord-style UI)
 - **База данных**: JSON файл (легко заменить на SQLite/PostgreSQL)
 
 ## Установка и запуск
 
-### 1. Установи Python 3.8+
+### 1. Установи Node.js 20+
 
 Проверь версию:
 ```bash
-python --version
-# или
-python3 --version
+node --version
 ```
 
 ### 2. Установи зависимости
 
 ```bash
-pip install -r requirements.txt
-# или
-pip3 install -r requirements.txt
+npm install
 ```
 
 ### 3. Запусти сервер
 
 ```bash
-python server.py
+npm run dev
 # или
-python3 server.py
+npm start
 ```
 
 Сервер запустится на `http://localhost:3000`
@@ -55,8 +51,8 @@ python3 server.py
 
 ```
 NeDS/
-├── server.py          # Python backend (Flask + Socket.IO)
-├── requirements.txt   # Python зависимости
+├── server.js          # Node.js backend (Express + Socket.IO)
+├── package.json       # Node.js зависимости
 ├── public/
 │   └── index.html     # Frontend
 ├── data/
@@ -83,25 +79,21 @@ NeDS/
 
 1. Создай новый **Web Service**
 2. Подключи GitHub репозиторий
-3. **Build Command**: 
-   ```
-   pip3 install --upgrade pip && pip3 install -r requirements.txt
-   ```
-4. **Start Command**: `python3 server.py`
+3. **Build Command**: `npm install`
+4. **Start Command**: `npm start`
 5. **Root Directory**: оставь пустым
 6. **Environment Variables**: не нужны (PORT устанавливается автоматически)
-7. **Python Version**: выбери Python 3.10 или выше
+7. **Node Version**: выбери Node.js 20.x
 8. Включи **Auto-Deploy** если нужно
-
-**Важно**: Убедись, что в Build Command используется `pip3 install -r requirements.txt` - это установит все зависимости, включая `eventlet`.
 
 ### Другие платформы
 
-Проект работает на любом хостинге с поддержкой Python 3:
+Проект работает на любом хостинге с поддержкой Node.js:
 - Railway
 - Fly.io
 - Heroku
 - DigitalOcean App Platform
+- Vercel (serverless)
 
 ## Лицензия
 
